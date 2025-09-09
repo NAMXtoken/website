@@ -1,11 +1,9 @@
-import * as React from "react";
-import { primitivesRoutes } from "@utils/primitivesRoutes";
 import { Box, ScrollArea } from "@radix-ui/themes";
+import * as React from "react";
 import { DocsNav } from "./DocsNav";
 import { MobileMenu } from "./MobileMenu";
 import { PrimitivesHeader } from "./PrimitivesHeader";
 import { PrimitivesSearchMobile } from "./PrimitivesSearchMobile";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export const PrimitivesMobileMenu = () => {
 	const [mobileSearchOpen, setMobileSearchOpen] = React.useState(false);
@@ -40,18 +38,7 @@ export const PrimitivesMobileMenu = () => {
 											slug: "blog",
 										},
 									],
-								},
-								...primitivesRoutes,
-								{
-									label: "Resources",
-									pages: [
-										{
-											title: "GitHub",
-											slug: "https://github.com/radix-ui/primitives",
-											icon: <GitHubLogoIcon />,
-										},
-									],
-								},
+								}
 							]}
 						/>
 					)}

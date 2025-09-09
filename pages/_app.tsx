@@ -4,7 +4,7 @@ import { Favicon } from "@components/Favicon";
 import { PrimitivesDocsPage } from "@components/PrimitivesDocsPage";
 import { ThemeProvider } from "@components/ThemeProvider";
 import { ThemesDocsPage } from "@components/ThemesDocsPage";
-import { Theme, ThemePanel } from "@radix-ui/themes";
+import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { handleUrlChange } from "@utils/analytics";
 import { AppProps } from "next/app";
@@ -16,7 +16,7 @@ import "./syntax-highlighting.css";
 function Pages({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 
-	if (router.pathname.startsWith("/primitives/docs")) {
+	if (router.pathname.startsWith("/docs")) {
 		return (
 			<Theme
 				accentColor="blue"
@@ -26,13 +26,13 @@ function Pages({ Component, pageProps }: AppProps) {
 				<PrimitivesDocsPage>
 					<Favicon />
 					<Component {...pageProps} />
-					<ThemePanel />
+
 				</PrimitivesDocsPage>
 			</Theme>
 		);
 	}
 
-	if (router.pathname.startsWith("/primitives")) {
+	if (router.pathname.startsWith("/")) {
 		return (
 			<Theme
 				accentColor="blue"
@@ -41,7 +41,7 @@ function Pages({ Component, pageProps }: AppProps) {
 			>
 				<Favicon />
 				<Component {...pageProps} />
-				<ThemePanel />
+
 			</Theme>
 		);
 	}
@@ -56,7 +56,7 @@ function Pages({ Component, pageProps }: AppProps) {
 				<ColorsDocsPage>
 					<Favicon />
 					<Component {...pageProps} />
-					<ThemePanel />
+
 				</ColorsDocsPage>
 			</Theme>
 		);
@@ -71,7 +71,7 @@ function Pages({ Component, pageProps }: AppProps) {
 			>
 				<Favicon />
 				<Component {...pageProps} />
-				<ThemePanel />
+
 			</Theme>
 		);
 	}
@@ -82,7 +82,7 @@ function Pages({ Component, pageProps }: AppProps) {
 				<ThemesDocsPage>
 					<Favicon />
 					<Component {...pageProps} />
-					<ThemePanel />
+
 				</ThemesDocsPage>
 			</Theme>
 		);
@@ -93,7 +93,7 @@ function Pages({ Component, pageProps }: AppProps) {
 			<Theme accentColor="indigo">
 				<Favicon />
 				<Component {...pageProps} />
-				<ThemePanel />
+
 			</Theme>
 		);
 	}
@@ -103,7 +103,7 @@ function Pages({ Component, pageProps }: AppProps) {
 			<Theme accentColor="indigo" className="radix-themes-custom-fonts">
 				<Favicon />
 				<Component {...pageProps} />
-				<ThemePanel />
+
 			</Theme>
 		);
 	}
@@ -117,7 +117,7 @@ function Pages({ Component, pageProps }: AppProps) {
 			>
 				<Favicon />
 				<Component {...pageProps} />
-				<ThemePanel />
+
 			</Theme>
 		);
 	}
@@ -127,7 +127,7 @@ function Pages({ Component, pageProps }: AppProps) {
 			<Theme accentColor="indigo" className="radix-themes-custom-fonts">
 				<Favicon />
 				<Component {...pageProps} />
-				<ThemePanel />
+
 			</Theme>
 		);
 	}
@@ -136,7 +136,7 @@ function Pages({ Component, pageProps }: AppProps) {
 		<Theme accentColor="indigo" className="radix-themes-custom-fonts">
 			<Favicon />
 			<Component {...pageProps} />
-			<ThemePanel />
+
 		</Theme>
 	);
 }

@@ -1,10 +1,8 @@
 "use client";
-import * as React from "react";
-import { Context } from "radix-ui/internal";
-import { RemoveScroll } from "react-remove-scroll";
-import { Slot } from "radix-ui";
-import { Box, Portal, Theme } from "@radix-ui/themes";
 import { useRouter } from "next/router";
+import { Context } from "radix-ui/internal";
+import * as React from "react";
+import { PrimitivesHeader } from "./PrimitivesHeader";
 
 const [MenuProvider, useMenuContext] = Context.createContext<{
 	open: boolean;
@@ -67,23 +65,23 @@ export const MobileMenu = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	return (
-		<Portal>
-			<Theme className="radix-themes-custom-fonts">
-				<RemoveScroll as={Slot.Root} allowPinchZoom enabled>
-					<Box
-						position="fixed"
-						inset="0"
-						style={{
-							zIndex: 1,
-							display: "grid",
-							gridTemplateRows: "auto minmax(0, 1fr)",
-							backgroundColor: "var(--color-background)",
-						}}
-					>
-						{children}
-					</Box>
-				</RemoveScroll>
-			</Theme>
-		</Portal>
+		<PrimitivesHeader ghost />
+		// 	<Theme className="radix-themes-custom-fonts">
+		// 		<RemoveScroll as={Slot.Root} allowPinchZoom enabled>
+		// 			<Box
+		// 				position="fixed"
+		// 				inset="0"
+		// 				style={{
+		// 					zIndex: 1,
+		// 					display: "grid",
+		// 					gridTemplateRows: "auto minmax(0, 1fr)",
+		// 					backgroundColor: "var(--color-background)",
+		// 				}}
+		// 			>
+		// 				{children}
+		// 			</Box>
+		// 		</RemoveScroll>
+		// 	</Theme>
+		// </Portal>
 	);
 };

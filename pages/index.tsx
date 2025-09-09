@@ -16,9 +16,9 @@ export default function ChurchillHome() {
 			<PrimitivesMobileMenu />
 
 			<TitleAndMetaTags
-				title="Radix Primitives"
-				description="Unstyled, accessible, open source React primitives for high-quality web apps and design systems."
-				image="primitives.png"
+				title="Churschill's Thonglor"
+				description="Your Local in the heart of Thonglor."
+				image="churchill.png"
 			/>
 			<Theme hasBackground accentColor="indigo" grayColor="slate">
 				{/** Changes color of "primary" buttons/toggles/links etc**/}

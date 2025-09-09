@@ -1,8 +1,8 @@
 import { Cross2Icon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Box, Flex, IconButton } from "@radix-ui/themes";
+import * as React from "react";
 import { PrimitivesSearch } from "./PrimitivesSearch";
 import styles from "./PrimitivesSearchMobile.module.css";
-import * as React from "react";
 
 interface PrimitivesSearchMobileProps {
 	onSearchShow?: () => void;
@@ -34,6 +34,7 @@ export const PrimitivesSearchMobile = ({
 			<Box position="relative">
 				<PrimitivesSearch.Input>
 					<input
+						title={"search"}
 						ref={inputRef}
 						className={styles.PrimitivesSearchMobileInput}
 					/>

@@ -89,7 +89,7 @@ export default function Landing() {
 
       {/* Upcoming Broadcasts */}
       <Box asChild px={{ initial: '3', sm: '5' }} py={{ initial: '4', sm: '6' }}>
-        <section aria-labelledby="broadcasts-heading">
+        <section id="fixtures" aria-labelledby="broadcasts-heading">
           <Heading id="broadcasts-heading" as="h2" size="7" mb="4">
             Upcoming Live Broadcasts
           </Heading>

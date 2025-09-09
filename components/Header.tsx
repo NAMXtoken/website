@@ -16,7 +16,6 @@ import { RemoveScroll } from "react-remove-scroll";
 import { BoxLink } from "./BoxLink";
 import styles from "./Header.module.css";
 import { useMobileMenuContext } from "./MobileMenu";
-import { RadixLogo, RadixLogoIcon } from "./RadixLogo";
 import { ThemeToggle } from "./ThemeToggle";
 
 export interface HeaderProps {
@@ -92,12 +91,12 @@ export const Header = ({ children, gitHubLink, ghost }: HeaderProps) => {
 								<NextLink href="/" passHref legacyBehavior>
 									<BoxLink>
 										<AccessibleIcon label="Churchill Homepage">
-											<RadixLogoIcon />
+											<></>{/* <RadixLogoIcon /> */}
 										</AccessibleIcon>
 									</BoxLink>
 								</NextLink>
 							) : (
-								<RadixByWorkOSLogoLink />
+								<></>// <RadixByWorkOSLogoLink />
 							)}
 						</Flex>
 
@@ -124,22 +123,22 @@ export const Header = ({ children, gitHubLink, ghost }: HeaderProps) => {
 								Home
 							</HeaderProductLink>
 							<HeaderProductLink
-								href="/#"
-								active={router.pathname.startsWith("/primitives")}
+								href="/pdfs/ChurchillsDrinksMenu.pdf"
+								active={router.pathname.startsWith("/x")}
 							>
-								Menu
+								Drink's Menu
 							</HeaderProductLink>
 							<HeaderProductLink
-								href="/#"
-								active={router.pathname.startsWith("/icons")}
+								href="/#fixtures"
+								active={router.pathname.startsWith("/x")}
 							>
 								What's On
 							</HeaderProductLink>
 							<HeaderProductLink
-								href="/pdfs/ChurchillsDrinksMenu.pdf"
-								active={router.pathname.startsWith("/colors")}
+								href="/#"
+								active={router.pathname.startsWith("/x")}
 							>
-								Drink's Menu
+								Menu
 							</HeaderProductLink>
 						</div>
 
@@ -159,7 +158,7 @@ export const Header = ({ children, gitHubLink, ghost }: HeaderProps) => {
 								size="2"
 								color="gray"
 								href="/#"
-								highContrast={router.pathname.includes("/blog")}
+								highContrast={router.pathname.includes("/#")}
 							>
 								Blog
 							</Link>
@@ -243,8 +242,8 @@ const RadixByWorkOSLogoLink = () => (
 	<Flex align="center" gap="3">
 		<NextLink href="/" passHref legacyBehavior>
 			<BoxLink>
-				<AccessibleIcon label="Radix Homepage">
-					<RadixLogo />
+				<AccessibleIcon label="Churchill Homepage">
+					<></>{/* <RadixLogo /> */}
 				</AccessibleIcon>
 			</BoxLink>
 		</NextLink>
@@ -258,7 +257,7 @@ const RadixByWorkOSLogoLink = () => (
 			}}
 		/>
 
-		<BoxLink href="https://workos.com" target="_blank">
+		{/* <BoxLink href="https://workos.com" target="_blank">
 			<AccessibleIcon label="Made by WorkOS">
 				<svg
 					width="85"
@@ -275,6 +274,6 @@ const RadixByWorkOSLogoLink = () => (
 					/>
 				</svg>
 			</AccessibleIcon>
-		</BoxLink>
+		</BoxLink> */}
 	</Flex>
 );

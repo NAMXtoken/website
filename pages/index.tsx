@@ -1,233 +1,70 @@
-import {
-	Box,
-	Flex,
-	Theme,
-	Text,
-	Button,
-	Section,
-	Link,
-	Badge,
-} from "@radix-ui/themes";
-import * as React from "react";
-import NextLink from "next/link";
-import { ThemesHeader } from "@components/ThemesHeader";
-import { ExampleThemesDashboard } from "@components/ExampleThemesDashboard";
-import * as MagicCurtain from "@components/MagicCurtain";
-import { ExampleThemesEcommerce } from "@components/ExampleThemesEcommerce";
-import { ExampleThemesMusicApp } from "@components/ExampleThemesMusicApp";
+import { Header } from "@components/Header";
+import Landing from "@components/Landing";
 import { MobileMenuProvider } from "@components/MobileMenu";
-import { useTheme } from "next-themes";
-import { SerifHeading } from "@components/SerifHeading";
-import { ThemesHeroLayout } from "@components/ThemesHeroLayout";
-import { ThemesMobileMenu } from "@components/ThemesMobileMenu";
-import { ArrowRightIcon, GridIcon } from "@radix-ui/react-icons";
+import { PrimitivesMobileMenu } from "@components/PrimitivesMobileMenu";
 import { TitleAndMetaTags } from "@components/TitleAndMetaTags";
-import { CodeBlock } from "@components/CodeBlock";
+import { Box, Container, Theme } from "@radix-ui/themes";
+import { useTheme } from "next-themes";
 
-export default function ThemesHome() {
+export default function ChurchillHome() {
 	const { resolvedTheme } = useTheme();
 	const inverted = resolvedTheme === "dark" ? "light" : "dark";
 
 	return (
+
 		<MobileMenuProvider>
+			<PrimitivesMobileMenu />
+
 			<TitleAndMetaTags
-				title="Radix UI"
-				description="Components, icons, and colors for building high‑quality, accessible UI. Free and open-source."
-				image="themes.png"
+				title="Radix Primitives"
+				description="Unstyled, accessible, open source React primitives for high-quality web apps and design systems."
+				image="primitives.png"
 			/>
+			<Theme hasBackground accentColor="indigo" grayColor="slate">
+				{/** Changes color of "primary" buttons/toggles/links etc**/}
+				<Box height="0">
+					<Header ghost />
+				</Box>
+				<BackgroundImage style={indigoBackgroundImageStyle} id="1" />
+				<Box style={{ overflowX: 'hidden', position: 'relative', zIndex: 1 }}>
 
-			<ThemesMobileMenu />
+					<Container mx={{ initial: "5", xs: "6", sm: "7", md: "9" }}>
+						{/* <FixturesList /> */}
+						{/* <WeekdayEvents /> */}
+						<Landing />
+					</Container>
 
-			<MagicCurtain.Root>
-				<MagicCurtain.Item defaultVisibility="visible">
-					<Theme hasBackground accentColor="indigo" grayColor="slate">
-						<Box height="0">
-							<ThemesHeader ghost />
-						</Box>
+				</Box>
 
-						<ThemesHeroLayout.Root>
-							<ThemesHeroLayout.Background>
-								<BackgroundImage style={indigoBackgroundImageStyle} id="1" />
-							</ThemesHeroLayout.Background>
-
-							<ThemesHeroLayout.Main>
-								<MainContent />
-							</ThemesHeroLayout.Main>
-
-							<ThemesHeroLayout.Showcase>
-								<Theme
-									className="radix-themes-default-fonts"
-									hasBackground={false}
-								>
-									<ExampleThemesDashboard align="start" focusable={false} />
-								</Theme>
-							</ThemesHeroLayout.Showcase>
-						</ThemesHeroLayout.Root>
-					</Theme>
-				</MagicCurtain.Item>
-
-				<MagicCurtain.Item>
-					<Theme
-						hasBackground
-						accentColor="indigo"
-						grayColor="slate"
-						appearance={inverted}
-					>
-						<Box height="0">
-							<ThemesHeader ghost />
-						</Box>
-
-						<ThemesHeroLayout.Root>
-							<ThemesHeroLayout.Background>
-								<BackgroundImage style={indigoBackgroundImageStyle} id="4" />
-							</ThemesHeroLayout.Background>
-
-							<ThemesHeroLayout.Main>
-								<MainContent />
-							</ThemesHeroLayout.Main>
-
-							<ThemesHeroLayout.Showcase>
-								<Theme
-									className="radix-themes-default-fonts"
-									hasBackground={false}
-								>
-									<ExampleThemesDashboard align="start" focusable={false} />
-								</Theme>
-							</ThemesHeroLayout.Showcase>
-						</ThemesHeroLayout.Root>
-					</Theme>
-				</MagicCurtain.Item>
-
-				<MagicCurtain.Item>
-					<Theme hasBackground accentColor="cyan" grayColor="gray">
-						<Box height="0">
-							<ThemesHeader ghost />
-						</Box>
-
-						<ThemesHeroLayout.Root>
-							<ThemesHeroLayout.Background>
-								<BackgroundImage style={tealBackgroundImageStyle} id="5" />
-							</ThemesHeroLayout.Background>
-
-							<ThemesHeroLayout.Main>
-								<MainContent />
-							</ThemesHeroLayout.Main>
-
-							<ThemesHeroLayout.Showcase>
-								<Theme
-									className="radix-themes-default-fonts"
-									accentColor="gray"
-									grayColor="gray"
-									hasBackground={false}
-								>
-									<ExampleThemesEcommerce align="start" focusable={false} />
-								</Theme>
-							</ThemesHeroLayout.Showcase>
-						</ThemesHeroLayout.Root>
-					</Theme>
-				</MagicCurtain.Item>
-
-				<MagicCurtain.Item>
-					<Theme
-						hasBackground
-						accentColor="teal"
-						grayColor="gray"
-						appearance={inverted}
-					>
-						<Box height="0">
-							<ThemesHeader ghost />
-						</Box>
-
-						<ThemesHeroLayout.Root>
-							<ThemesHeroLayout.Background>
-								<BackgroundImage style={tealBackgroundImageStyle} id="2" />
-							</ThemesHeroLayout.Background>
-
-							<ThemesHeroLayout.Main>
-								<MainContent />
-							</ThemesHeroLayout.Main>
-
-							<ThemesHeroLayout.Showcase>
-								<Theme
-									className="radix-themes-default-fonts"
-									accentColor="gray"
-									hasBackground={false}
-								>
-									<ExampleThemesEcommerce align="start" focusable={false} />
-								</Theme>
-							</ThemesHeroLayout.Showcase>
-						</ThemesHeroLayout.Root>
-					</Theme>
-				</MagicCurtain.Item>
-
-				<MagicCurtain.Item>
-					<Theme hasBackground accentColor="red" grayColor="slate">
-						<Box height="0">
-							<ThemesHeader ghost />
-						</Box>
-
-						<ThemesHeroLayout.Root>
-							<ThemesHeroLayout.Background>
-								<BackgroundImage style={redBackgroundImageStyle} id="3" />
-							</ThemesHeroLayout.Background>
-
-							<ThemesHeroLayout.Main>
-								<MainContent />
-							</ThemesHeroLayout.Main>
-
-							<ThemesHeroLayout.Showcase>
-								<Theme
-									className="radix-themes-default-fonts"
-									hasBackground={false}
-								>
-									<ExampleThemesMusicApp align="start" focusable={false} />
-								</Theme>
-							</ThemesHeroLayout.Showcase>
-						</ThemesHeroLayout.Root>
-					</Theme>
-				</MagicCurtain.Item>
-
-				<MagicCurtain.Item>
-					<Theme
-						hasBackground
-						accentColor="red"
-						grayColor="slate"
-						appearance={inverted}
-					>
-						<Box height="0">
-							<ThemesHeader ghost />
-						</Box>
-
-						<ThemesHeroLayout.Root>
-							<ThemesHeroLayout.Background>
-								<BackgroundImage style={redBackgroundImageStyle} id="6" />
-							</ThemesHeroLayout.Background>
-
-							<ThemesHeroLayout.Main>
-								<MainContent />
-							</ThemesHeroLayout.Main>
-
-							<ThemesHeroLayout.Showcase>
-								<Theme
-									className="radix-themes-default-fonts"
-									hasBackground={false}
-								>
-									<ExampleThemesMusicApp align="start" focusable={false} />
-								</Theme>
-							</ThemesHeroLayout.Showcase>
-						</ThemesHeroLayout.Root>
-					</Theme>
-				</MagicCurtain.Item>
-
-				<Theme appearance="light" hasBackground={false}>
-					<MagicCurtain.Controls
-						images={
-							resolvedTheme === "light" ? previewImages : previewImagesDarkMode
-						}
-					/>
-				</Theme>
-			</MagicCurtain.Root>
-		</MobileMenuProvider>
+				{/* <PrimitivesHero /> */}
+				{/* <CaseStudiesSection />
+			<Container mx={{ initial: "5", xs: "6", sm: "7", md: "9" }}>
+				<Separator size="2" />
+			</Container>
+			<Box overflow="hidden">
+				<BenefitsSection />
+				<StatsSection />
+			</Box>
+			<ComponentHighlightsSection />
+			<AccessibilitySection />
+			<DeveloperExperienceSection />
+			<AdoptionSection />
+			<Container mx={{ initial: "5", xs: "6", sm: "7", md: "9" }}>
+				<Separator size="2" />
+			</Container>
+			<Section size={{ initial: "2", md: "4" }}>
+				<Container mx={{ initial: "5", xs: "6", sm: "7", md: "9" }}>
+					<CommunitySection />
+				</Container>
+			</Section>
+			<Container mx={{ initial: "5", xs: "6", sm: "7", md: "9" }}>
+				<Separator size="2" />
+				<Section size={{ initial: "2", md: "4" }} pb="0">
+					<Footer />
+				</Section>
+			</Container>*/}
+			</Theme >
+		</MobileMenuProvider >
 	);
 }
 
@@ -248,133 +85,6 @@ const previewImagesDarkMode = [
 	previewImages[5],
 	previewImages[4],
 ];
-
-const MainContent = () => (
-	<Box>
-		<Section
-			size={{ initial: "2", md: "4", lg: "2" }}
-			pb={{ initial: "4", lg: "7" }}
-			mt={{ lg: "max(-160px, min(0px, calc(-0.2 * (100vh - 800px)))" }}
-		>
-			<Box>
-				<Flex align="center" gap="2" mb="6">
-					<Badge asChild size="3" radius="full">
-						<NextLink href="/blog/themes-3">
-							Read about Radix Themes 3.0
-							<ArrowRightIcon
-								width="15"
-								height="15"
-								style={{ marginLeft: -2 }}
-							/>
-						</NextLink>
-					</Badge>
-				</Flex>
-				<Box display={{ lg: "none" }}>
-					<SerifHeading mb="3">
-						Start building
-						<br />
-						your app now
-					</SerifHeading>
-				</Box>
-				<Box display={{ initial: "none", lg: "block" }}>
-					<SerifHeading
-						mb="4"
-						style={
-							{
-								lineHeight: 0.9,
-								"--heading-font-size-adjust": 1.3,
-							} as React.CSSProperties
-						}
-					>
-						Start building
-						<br />
-						your app now
-					</SerifHeading>
-				</Box>
-			</Box>
-
-			<Box style={{ maxWidth: 500 }}>
-				<Text size={{ initial: "4", xs: "5" }}>
-					<Text as="p" mb="5" color="gray">
-						An open source component library optimized for fast development,
-						easy maintenance, and accessibility. Just import and go—no
-						configuration required.
-					</Text>
-
-					<Box mb="5">
-						<CodeBlock.Root
-							style={
-								{
-									"--code-block-background": "var(--color-panel-solid)",
-								} as React.CSSProperties
-							}
-						>
-							<CodeBlock.Content>
-								<CodeBlock.Pre>
-									<CodeBlock.Code language="jsx">{codeExample}</CodeBlock.Code>
-								</CodeBlock.Pre>
-							</CodeBlock.Content>
-						</CodeBlock.Root>
-					</Box>
-				</Text>
-
-				<Flex gap="4" direction={{ initial: "column", xs: "row" }}>
-					<NextLink
-						href="/themes/docs/overview/getting-started"
-						passHref
-						legacyBehavior
-					>
-						<Button
-							asChild
-							size={{ initial: "3", xs: "4" }}
-							color="gray"
-							highContrast
-							style={{ flexGrow: 1 }}
-						>
-							<a>
-								Get started
-								<svg
-									width="14"
-									height="14"
-									viewBox="0 0 12 12"
-									xmlns="http://www.w3.org/2000/svg"
-									fill="currentcolor"
-									style={{ opacity: 1, marginRight: -3 }}
-								>
-									<path d="M6.39205 11.6023L5.36932 10.5909L8.92045 7.03977H0V5.5625H8.92045L5.36932 2.01705L6.39205 1L11.6932 6.30114L6.39205 11.6023Z" />
-								</svg>
-							</a>
-						</Button>
-					</NextLink>
-					<NextLink href="/themes/playground" passHref legacyBehavior>
-						<Button
-							asChild
-							size={{ initial: "3", xs: "4" }}
-							variant="soft"
-							highContrast
-							style={{ flexGrow: 1 }}
-						>
-							<a>
-								<GridIcon width="18" height="18" style={{ marginTop: 1 }} />
-								Playground
-							</a>
-						</Button>
-					</NextLink>
-				</Flex>
-			</Box>
-
-			<ThemesHeroLayout.Controls>
-				<Text weight="bold" size="3" style={{ pointerEvents: "none" }}>
-					Live examples
-				</Text>
-				<Box mx="-1">
-					<MagicCurtain.MirrorControls />
-				</Box>
-			</ThemesHeroLayout.Controls>
-		</Section>
-	</Box>
-);
-
 const indigoBackgroundImageStyle = {
 	"--color-background-image-base": "var(--color-background)",
 	"--color-background-image-accent-1": "var(--indigo-a7)",
@@ -436,7 +146,8 @@ const BackgroundImage = ({
 		viewBox="0 0 2560 1920"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		style={{ opacity: 0.5, ...style }}
+		style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.5, ...style }}
+		aria-hidden="true"
 		{...props}
 	>
 		<g>

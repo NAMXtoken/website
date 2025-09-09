@@ -10,6 +10,24 @@
 	--hero-card-background-color: rgba(255, 255, 255, 0.8);
 }
 
+/* Light mode: soften panel/card backgrounds using alpha grays */
+:is(:root, .light-theme, .light) .radix-themes {
+	/* Panels are used by Card and other surfaces */
+	--color-panel: var(--gray-a2);
+	/* Keep background solid enough for readability while allowing gradient to come through subtly */
+	--color-surface: var(--gray-a2);
+}
+
+/* Ensure Cards pick up the translucent panel color in light mode */
+:is(:root, .light-theme, .light) .radix-themes .rt-Card {
+	background-color: var(--color-panel);
+}
+
+/* Ensure all h2 are solid black on light theme */
+.light-theme .radix-themes h2 {
+    color: #000 !important;
+}
+
 :is(.dark-theme, .dark) {
 	--hero-card-background-color: #1b1d1eb3;
 }

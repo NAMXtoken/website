@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import { GitHubLogoIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import {
 	AccessibleIcon,
 	Flex,
@@ -8,16 +8,16 @@ import {
 	Theme,
 	Tooltip,
 } from "@radix-ui/themes";
-import styles from "./Header.module.css";
-import { BoxLink } from "./BoxLink";
-import { ThemeToggle } from "./ThemeToggle";
-import { GitHubLogoIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { classNames } from "@utils/classNames";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useMobileMenuContext } from "./MobileMenu";
-import { classNames } from "@utils/classNames";
-import { RadixLogo, RadixLogoIcon } from "./RadixLogo";
+import * as React from "react";
 import { RemoveScroll } from "react-remove-scroll";
+import { BoxLink } from "./BoxLink";
+import styles from "./Header.module.css";
+import { useMobileMenuContext } from "./MobileMenu";
+import { RadixLogo, RadixLogoIcon } from "./RadixLogo";
+import { ThemeToggle } from "./ThemeToggle";
 
 export interface HeaderProps {
 	children?: React.ReactNode;
@@ -91,7 +91,7 @@ export const Header = ({ children, gitHubLink, ghost }: HeaderProps) => {
 							{mobileMenu.open ? (
 								<NextLink href="/" passHref legacyBehavior>
 									<BoxLink>
-										<AccessibleIcon label="Radix Homepage">
+										<AccessibleIcon label="Churchill Homepage">
 											<RadixLogoIcon />
 										</AccessibleIcon>
 									</BoxLink>
@@ -110,7 +110,7 @@ export const Header = ({ children, gitHubLink, ghost }: HeaderProps) => {
 							left="0"
 							pl="4"
 						>
-							<RadixByWorkOSLogoLink />
+							{/* <RadixByWorkOSLogoLink /> */}
 						</Flex>
 
 						<div className={styles.HeaderProductLinksContainer}>
@@ -118,28 +118,28 @@ export const Header = ({ children, gitHubLink, ghost }: HeaderProps) => {
 								href="/"
 								active={
 									router.pathname === "/" ||
-									router.pathname.startsWith("/themes")
+									router.pathname.startsWith("/#")
 								}
 							>
-								Themes
+								Home
 							</HeaderProductLink>
 							<HeaderProductLink
-								href="/primitives"
+								href="/#"
 								active={router.pathname.startsWith("/primitives")}
 							>
-								Primitives
+								Menu
 							</HeaderProductLink>
 							<HeaderProductLink
-								href="/icons"
+								href="/#"
 								active={router.pathname.startsWith("/icons")}
 							>
-								Icons
+								What's On
 							</HeaderProductLink>
 							<HeaderProductLink
-								href="/colors"
+								href="/pdfs/ChurchillsDrinksMenu.pdf"
 								active={router.pathname.startsWith("/colors")}
 							>
-								Colors
+								Drink's Menu
 							</HeaderProductLink>
 						</div>
 
@@ -158,7 +158,7 @@ export const Header = ({ children, gitHubLink, ghost }: HeaderProps) => {
 							<Link
 								size="2"
 								color="gray"
-								href="/blog"
+								href="/#"
 								highContrast={router.pathname.includes("/blog")}
 							>
 								Blog

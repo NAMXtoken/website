@@ -1,6 +1,6 @@
 import { Link } from "@radix-ui/themes";
-import { Header, HeaderProps } from "./Header";
 import { useRouter } from "next/router";
+import { Header, HeaderProps } from "./Header";
 
 export const PrimitivesHeader = (props: HeaderProps) => {
 	const router = useRouter();
@@ -10,18 +10,18 @@ export const PrimitivesHeader = (props: HeaderProps) => {
 			<Link
 				size="2"
 				color="gray"
-				href="/primitives/docs"
+				href="#"
 				highContrast={router.pathname.includes("/primitives/docs")}
 			>
-				Documentation
+				Social
 			</Link>
 			<Link
 				size="2"
 				color="gray"
-				href="/primitives/case-studies"
+				href="#"
 				highContrast={router.pathname.includes("/primitives/case-studies")}
 			>
-				Case studies
+				Directions
 			</Link>
 		</Header>
 	);

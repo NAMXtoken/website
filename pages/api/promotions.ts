@@ -75,7 +75,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         cocktail: {
           name: String(obj?.cocktail_name ?? obj?.cocktail?.name ?? ''),
           promoPrice: String(obj?.cocktail_promo_price ?? obj?.cocktail?.promoPrice ?? ''),
-          originalPrice: obj?.cocktail_original_price ? String(obj.cocktail_original_price) : undefined,
+          // Support both flat and nested shapes from the upstream (Sheet2 / Apps Script)
+          originalPrice: obj?.cocktail_original_price
+            ? String(obj.cocktail_original_price)
+            : (obj?.cocktail?.originalPrice ? String(obj.cocktail.originalPrice) : undefined),
           description: obj?.cocktail_description ? String(obj.cocktail_description) : (obj?.cocktail?.description ? String(obj.cocktail.description) : undefined),
         },
         dealOfTheDay: String(obj?.deal_of_the_day ?? obj?.dealOfTheDay ?? ''),

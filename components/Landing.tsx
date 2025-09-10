@@ -1,6 +1,6 @@
 import { Box, Button, Card, Flex, Grid, Heading, Inset, Separator, Text } from '@radix-ui/themes';
-import styles from './Landing.module.css';
 import FixturesList from './FixtureList';
+import styles from './Landing.module.css';
 import WeekdayEvents from './WeekdayEvents';
 
 export default function Landing() {
@@ -35,7 +35,11 @@ export default function Landing() {
             {/* Single hero image: card-like on mobile, full-bleed on desktop */}
             <Box mt="1" mb="4" className={styles.heroWrap}>
               <div className={styles.heroInner}>
-                <img src="/images/hero.png" alt="Hero" className={styles.heroImage} />
+                <img
+                  src="https://images.unsplash.com/photo-1709131121957-87cb1a693e82?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Fans watching sports at the bar"
+                  className={styles.heroImage}
+                />
               </div>
             </Box>
           </Flex>

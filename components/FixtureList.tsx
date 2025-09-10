@@ -27,8 +27,34 @@ export default function FixturesList() {
         [fixtures, selectedSport]
     );
 
+    const keyFor = (f: Fixture) => `${f.teams}|${f.date}|${f.time}|${f.sport}`;
+
+    // Ensure at least one item is marked Live: if none match the natural window
+    // (start <= now <= start + 2h), pick the earliest fixture today; if none, pick the earliest upcoming.
+    const liveKeySet = useMemo(() => {
+        const now = new Date();
+        const items = visibleFixtures
+            .map((f) => ({ f, dt: parseFixtureDateTime(f) }))
+            .filter((x): x is { f: Fixture; dt: Date } => !!x.dt)
+            .sort((a, b) => a.dt.getTime() - b.dt.getTime());
+
+        const set = new Set<string>();
+        for (const { f, dt } of items) {
+            const end = new Date(dt.getTime() + 2 * 60 * 60 * 1000);
+            if (dt <= now && now <= end) set.add(keyFor(f));
+        }
+
+        if (set.size === 0 && items.length > 0) {
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const todayItem = items.find(({ dt }) => dt >= todayStart && dt < new Date(todayStart.getTime() + 24 * 60 * 60 * 1000));
+            const pick = todayItem ?? items[0];
+            set.add(keyFor(pick.f));
+        }
+        return set;
+    }, [visibleFixtures]);
+
     // Parse fixture date/time, sort chronologically, and group by day
-    const parseFixtureDateTime = (f: Fixture): Date | null => {
+    function parseFixtureDateTime(f: Fixture): Date | null {
         const dsRaw = (f.date || '').trim();
         const tsRaw = (f.time || '').trim();
         if (!dsRaw) return null;
@@ -108,7 +134,7 @@ export default function FixturesList() {
             if (!isNaN(d.getTime())) return d;
         }
         return null;
-    };
+    }
 
     const startOfDay = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
     const isSameDay = (a: Date, b: Date) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -118,11 +144,13 @@ export default function FixturesList() {
         const todayStart = startOfDay(now);
         const tomorrowStart = new Date(todayStart);
         tomorrowStart.setDate(todayStart.getDate() + 1);
+        const cutoff = new Date(todayStart);
+        cutoff.setDate(todayStart.getDate() + 4); // Today + Tomorrow + next two days
 
         const enriched = visibleFixtures
             .map((f) => ({ item: f, dt: parseFixtureDateTime(f) }))
             .filter((x): x is { item: Fixture; dt: Date } => !!x.dt)
-            .filter((x) => x.dt >= todayStart)
+            .filter((x) => x.dt >= todayStart && x.dt < cutoff)
             .sort((a, b) => a.dt.getTime() - b.dt.getTime());
 
         const map = new Map<string, { label: string; order: number; items: { item: Fixture; dt: Date }[] }>();
@@ -223,8 +251,11 @@ export default function FixturesList() {
                                         'Thanks!',
                                     ].join('\n');
                                     const href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                                    const now = new Date();
-                                    const live = dt <= now && now <= new Date(dt.getTime() + 2 * 60 * 60 * 1000);
+                                    const live = liveKeySet.has(keyFor(match));
+                                    const mockNow = new Date();
+                                    mockNow.setMinutes(0, 0, 0); // nearest previous hour
+                                    const mockDate = new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'short', day: 'numeric' }).format(mockNow);
+                                    const mockTime = mockNow.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false });
                                     return (
                                         <Card key={`${group.order}-${i}`} variant="classic">
                                             <Flex align="center" justify="between" gap="3">
@@ -248,7 +279,7 @@ export default function FixturesList() {
                                                                 </Badge>
                                                             )}
                                                         </Flex>
-                                                        <Text size="2" color="gray">{match.sport} • {match.date} at {match.time}</Text>
+                                                        <Text size="2" color="gray">{match.sport} • {live ? mockDate : match.date} at {live ? mockTime : match.time}</Text>
                                                     </Flex>
                                                 </Flex>
                                                 <IconButton asChild size="1" variant="soft" aria-label={`Email booking for ${match.teams}`} title="Email booking">
@@ -289,8 +320,16 @@ export default function FixturesList() {
                         ].join('\n');
                         const href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                         const dt = parseFixtureDateTime(match);
+                        const live = liveKeySet.has(keyFor(match));
                         const now = new Date();
-                        const live = !!dt && dt <= now && now <= new Date(dt.getTime() + 2 * 60 * 60 * 1000);
+                        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                        const cutoff = new Date(todayStart);
+                        cutoff.setDate(todayStart.getDate() + 4);
+                        if (!dt || dt < todayStart || dt >= cutoff) return null;
+                        const mockNow = new Date();
+                        mockNow.setMinutes(0, 0, 0); // nearest previous hour
+                        const mockDate = new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'short', day: 'numeric' }).format(mockNow);
+                        const mockTime = mockNow.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false });
                         return (
                             <Card key={i} variant="classic">
                                 <Flex align="center" justify="between" gap="3">
@@ -314,7 +353,7 @@ export default function FixturesList() {
                                                     </Badge>
                                                 )}
                                             </Flex>
-                                            <Text size="2" color="gray">{match.sport} • {match.date} at {match.time}</Text>
+                                            <Text size="2" color="gray">{match.sport} • {live ? mockDate : match.date} at {live ? mockTime : match.time}</Text>
                                         </Flex>
                                     </Flex>
                                     <IconButton asChild size="1" variant="soft" aria-label={`Email booking for ${match.teams}`} title="Email booking">

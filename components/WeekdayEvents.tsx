@@ -116,6 +116,8 @@ export default function WeekdayEvents() {
     load();
   }, []);
 
+  
+
 
 
   // Sort events to Monday→Sunday order
@@ -138,7 +140,7 @@ export default function WeekdayEvents() {
     Saturday:
       "Saturday prime time. Settle in for the week’s best pours, plates, and playlists.",
     Sunday:
-      "Sunday slowdown. Comfort plates, smooth sounds, and one last toast to the week." ,
+      "Sunday slowdown. Comfort plates, smooth sounds, and one last toast to the week.",
   };
 
 
@@ -158,6 +160,8 @@ export default function WeekdayEvents() {
     return map[idx];
   }, []);
 
+  
+
   return (
     <>
       <Flex align="center" justify="start" gap="2" mb="3">
@@ -176,64 +180,20 @@ export default function WeekdayEvents() {
           return (
             <Box key={ev.day} width="100%">
               <Card size="2">
-                {/* Mobile layout: 2 columns (image + content), alternating image position */}
+                {/* Mobile layout: Row 1 (2 cols): image | day+blurb (alternating); Row 2 (1 col): details */}
                 <Box display={{ initial: 'block', sm: 'none' }}>
-                  <Grid columns="2" gap="3">
-                    {mobileImageFirst ? (
-                      <>
-                        <Box>
-                          <img
-                            src={imgLeft}
-                            alt={ev.day + ' promotions'}
-                            style={{ display: 'block', width: '100%', height: 140, objectFit: 'cover', borderRadius: 6 }}
-                          />
-                        </Box>
-                        {(() => (
+                  <Flex direction="column" gap="3">
+                    {/* Row 1 */}
+                    <Grid columns="2" gap="3">
+                      {mobileImageFirst ? (
+                        <>
                           <Box>
-                            {/** reuse content, but lighter spacing for mobile **/}
-                            <Flex direction="column" gap="2">
-                              <Flex align="center" justify="between">
-                                <Text weight="bold" size="6">{ev.day}</Text>
-                                {isToday && <Badge size="1" radius="full" color="green">Today</Badge>}
-                              </Flex>
-                              <Text as="p" size="2" color="gray">{ev.blurb || dayBlurbs[ev.day]}</Text>
-                              <Box>
-                                <Text as="div" weight="medium" size="2">Featured Cocktail</Text>
-                                <Text as="div" size="3">
-                                  <Strong>{ev.cocktail.name}</Strong>{' '}
-                                  {ev.cocktail.originalPrice ? (
-                                    <>
-                                      (<span style={{ textDecoration: 'line-through', opacity: 0.7 }}>{ev.cocktail.originalPrice}</span>) → <Strong>{ev.cocktail.promoPrice}</Strong>
-                                    </>
-                                  ) : (
-                                    <>→ <Strong>{ev.cocktail.promoPrice}</Strong></>
-                                  )}
-                                </Text>
-                                {ev.cocktail.description && (
-                                  <Text as="p" size="2" color="gray">{ev.cocktail.description}</Text>
-                                )}
-                              </Box>
-                              <Box>
-                                <Text as="div" weight="medium" size="2">Deal of the Day</Text>
-                                <Text as="div" size="2" color="gray">{ev.dealOfTheDay}</Text>
-                              </Box>
-                              <Box>
-                                <Text as="div" weight="medium" size="2">Music</Text>
-                                <Text as="div" size="2" color="gray">{ev.musicGenre}</Text>
-                              </Box>
-                              {ev.specials && ev.specials.length > 0 && (
-                                <Box>
-                                  <Text as="div" weight="medium" size="2">Specials</Text>
-                                  <Text as="div" size="2" color="gray">{ev.specials.join(', ')}</Text>
-                                </Box>
-                              )}
-                            </Flex>
+                            <img
+                              src={imgLeft}
+                              alt={ev.day + ' promotions'}
+                              style={{ display: 'block', width: '100%', height: 140, objectFit: 'cover', borderRadius: 6 }}
+                            />
                           </Box>
-                        ))()}
-                      </>
-                    ) : (
-                      <>
-                        {(() => (
                           <Box>
                             <Flex direction="column" gap="2">
                               <Flex align="center" justify="between">
@@ -241,49 +201,67 @@ export default function WeekdayEvents() {
                                 {isToday && <Badge size="1" radius="full" color="green">Today</Badge>}
                               </Flex>
                               <Text as="p" size="2" color="gray">{ev.blurb || dayBlurbs[ev.day]}</Text>
-                              <Box>
-                                <Text as="div" weight="medium" size="2">Featured Cocktail</Text>
-                                <Text as="div" size="3">
-                                  <Strong>{ev.cocktail.name}</Strong>{' '}
-                                  {ev.cocktail.originalPrice ? (
-                                    <>
-                                      (<span style={{ textDecoration: 'line-through', opacity: 0.7 }}>{ev.cocktail.originalPrice}</span>) → <Strong>{ev.cocktail.promoPrice}</Strong>
-                                    </>
-                                  ) : (
-                                    <>→ <Strong>{ev.cocktail.promoPrice}</Strong></>
-                                  )}
-                                </Text>
-                                {ev.cocktail.description && (
-                                  <Text as="p" size="2" color="gray">{ev.cocktail.description}</Text>
-                                )}
-                              </Box>
-                              <Box>
-                                <Text as="div" weight="medium" size="2">Deal of the Day</Text>
-                                <Text as="div" size="2" color="gray">{ev.dealOfTheDay}</Text>
-                              </Box>
-                              <Box>
-                                <Text as="div" weight="medium" size="2">Music</Text>
-                                <Text as="div" size="2" color="gray">{ev.musicGenre}</Text>
-                              </Box>
-                              {ev.specials && ev.specials.length > 0 && (
-                                <Box>
-                                  <Text as="div" weight="medium" size="2">Specials</Text>
-                                  <Text as="div" size="2" color="gray">{ev.specials.join(', ')}</Text>
-                                </Box>
-                              )}
                             </Flex>
                           </Box>
-                        ))()}
+                        </>
+                      ) : (
+                        <>
+                          <Box>
+                            <Flex direction="column" gap="2">
+                              <Flex align="center" justify="between">
+                                <Text weight="bold" size="6">{ev.day}</Text>
+                                {isToday && <Badge size="1" radius="full" color="green">Today</Badge>}
+                              </Flex>
+                              <Text as="p" size="2" color="gray">{ev.blurb || dayBlurbs[ev.day]}</Text>
+                            </Flex>
+                          </Box>
+                          <Box>
+                            <img
+                              src={imgLeft}
+                              alt={ev.day + ' promotions'}
+                              style={{ display: 'block', width: '100%', height: 140, objectFit: 'cover', borderRadius: 6 }}
+                            />
+                          </Box>
+                        </>
+                      )}
+                    </Grid>
+
+                    {/* Row 2 */}
+                    <Box>
+                      <Flex direction="column" gap="2">
                         <Box>
-                          <img
-                            src={imgLeft}
-                            alt={ev.day + ' promotions'}
-                            style={{ display: 'block', width: '100%', height: 140, objectFit: 'cover', borderRadius: 6 }}
-                          />
+                          <Text as="div" weight="medium" size="2">Featured Cocktail</Text>
+                          <Text as="div" size="3">
+                            <Strong>{ev.cocktail.name}</Strong>{' '}
+                            {ev.cocktail.originalPrice ? (
+                              <>
+                                (<span style={{ textDecoration: 'line-through', opacity: 0.7 }}>{ev.cocktail.originalPrice}</span>) → <Strong>{ev.cocktail.promoPrice}</Strong>
+                              </>
+                            ) : (
+                              <>→ <Strong>{ev.cocktail.promoPrice}</Strong></>
+                            )}
+                          </Text>
+                          {ev.cocktail.description && (
+                            <Text as="p" size="2" color="gray">{ev.cocktail.description}</Text>
+                          )}
                         </Box>
-                      </>
-                    )}
-                  </Grid>
+                        <Box>
+                          <Text as="div" weight="medium" size="2">Deal of the Day</Text>
+                          <Text as="div" size="2" color="gray">{ev.dealOfTheDay}</Text>
+                        </Box>
+                        <Box>
+                          <Text as="div" weight="medium" size="2">Music</Text>
+                          <Text as="div" size="2" color="gray">{ev.musicGenre}</Text>
+                        </Box>
+                        {ev.specials && ev.specials.length > 0 && (
+                          <Box>
+                            <Text as="div" weight="medium" size="2">Specials</Text>
+                            <Text as="div" size="2" color="gray">{ev.specials.join(', ')}</Text>
+                          </Box>
+                        )}
+                      </Flex>
+                    </Box>
+                  </Flex>
                 </Box>
 
                 {/* Desktop/tablet layout: 3 columns (image | content | image) */}
@@ -360,10 +338,10 @@ export default function WeekdayEvents() {
                   })()}
                 </Flex>
               </Card>
-            </Box>
+            </Box >
           );
         })}
-      </Grid>
+      </Grid >
     </>
   );
 }
